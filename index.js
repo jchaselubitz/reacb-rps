@@ -6,7 +6,7 @@ import { renderDOM, renderView } from "./views/render";
 import "./index.css";
 import * as backend from "./build/index.main.mjs";
 import { loadStdlib } from "@reach-sh/stdlib";
-const reach = loadStdlib(process.env);
+const reach = loadStdlib();
 
 const handToInt = { ROCK: 0, PAPER: 1, SCISSORS: 2 };
 const intToOutcome = ["Bob wins!", "Draw!", "Alice wins!"];
@@ -20,9 +20,7 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    console.log("The program reaches this line");
     const acc = await reach.getDefaultAccount();
-    console.log("The program does not reach this line");
     const balAtomic = await reach.balanceOf(acc);
     const bal = reach.formatCurrency(balAtomic, 4);
     this.setState({ acc, bal });
